@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo de Brindes Personalizados</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal:#00796A;--teal-dark:#005A4E;--teal-light:#E0F2F0;--teal-mid:#4AADA3;
+    --gold:#C9A84C;--gold-light:#F0D98A;--gold-pale:#FBF5E6;
+    --dark:#0D2B27;--mid:#3A6B64;--light:#F5F9F8;--white:#FFFFFF;--border:#C6DDD9;
+    --radius:12px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--light);color:var(--dark);line-height:1.6;}
+
+  /* COVER */
+  .cover{background:var(--teal-dark);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 40px;position:relative;overflow:hidden;page-break-after:always;}
+  .cover::before{content:'';position:absolute;top:-120px;right:-120px;width:440px;height:440px;border-radius:50%;border:1px solid rgba(201,168,76,.18);}
+  .cover::after{content:'';position:absolute;bottom:-160px;left:-120px;width:520px;height:520px;border-radius:50%;border:1px solid rgba(201,168,76,.10);}
+  .logo-area{margin-bottom:32px;position:relative;z-index:2;}
+  .logo-placeholder{width:200px;height:80px;border:1.5px dashed rgba(201,168,76,.35);border-radius:10px;display:flex;align-items:center;justify-content:center;color:rgba(201,168,76,.45);font-size:11px;letter-spacing:1px;text-transform:uppercase;margin:0 auto;}
+  .cover-badge{display:inline-block;border:1px solid var(--gold);color:var(--gold);font-size:11px;letter-spacing:3px;text-transform:uppercase;padding:6px 20px;border-radius:30px;margin-bottom:32px;font-weight:500;position:relative;z-index:2;}
+  .cover h1{font-family:'Playfair Display',serif;font-size:clamp(38px,6vw,66px);color:var(--white);line-height:1.1;margin-bottom:16px;max-width:680px;position:relative;z-index:2;}
+  .cover h1 span{color:var(--gold);display:block;}
+  .cover-sub{font-size:15px;color:rgba(255,255,255,.48);max-width:400px;margin:0 auto 40px;font-weight:300;position:relative;z-index:2;}
+  .cover-divider{width:55px;height:1px;background:var(--gold);margin:0 auto 26px;position:relative;z-index:2;}
+  .cover-pills{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;z-index:2;}
+  .cover-pill{border:1px solid rgba(201,168,76,.3);border-radius:30px;padding:7px 18px;text-align:center;}
+  .cover-pill .pl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.35);display:block;margin-bottom:2px;}
+  .cover-pill .pv{font-size:13px;color:var(--gold-light);font-weight:500;}
+
+  /* INFO PAGE */
+  .info-page{background:var(--teal-dark);padding:72px 56px;page-break-after:always;}
+  .info-page h2{font-family:'Playfair Display',serif;font-size:29px;color:var(--white);margin-bottom:8px;}
+  .info-intro{color:rgba(255,255,255,.45);font-size:13px;margin-bottom:40px;max-width:560px;}
+  .tier-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin-bottom:38px;}
+  .tier{border:1px solid rgba(201,168,76,.22);border-radius:var(--radius);padding:24px 18px;text-align:center;position:relative;background:rgba(255,255,255,.03);}
+  .tier.hot{border-color:var(--gold);background:rgba(201,168,76,.07);}
+  .tier .best{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--dark);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 12px;border-radius:20px;white-space:nowrap;}
+  .tier .qty{font-size:11px;color:rgba(255,255,255,.4);margin-bottom:7px;font-weight:300;}
+  .tier .pct{font-size:34px;font-family:'Playfair Display',serif;color:var(--gold-light);line-height:1;margin-bottom:3px;}
+  .tier .lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.26);}
+  .cond-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px;}
+  @media(max-width:600px){.cond-grid{grid-template-columns:1fr;}}
+  .cond-block{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.16);border-left:3px solid var(--gold);border-radius:0 var(--radius) var(--radius) 0;padding:18px 20px;}
+  .cond-block h4{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:500;}
+  .cond-block ul{list-style:none;}
+  .cond-block li{font-size:13px;color:rgba(255,255,255,.58);line-height:1.8;}
+  .cond-block li::before{content:'→  ';color:var(--gold);}
+  .info-note{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.16);border-left:3px solid var(--gold);border-radius:0 var(--radius) var(--radius) 0;padding:16px 20px;}
+  .info-note p{font-size:13px;color:rgba(255,255,255,.55);line-height:1.75;}
+  .info-note strong{color:var(--gold-light);font-weight:500;}
+
+  /* SECTION */
+  .section{padding:52px 46px;}
+  .sec-head{display:flex;align-items:center;gap:16px;margin-bottom:32px;padding-bottom:16px;border-bottom:2px solid var(--teal-light);}
+  .sec-icon{width:46px;height:46px;background:var(--teal);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0;}
+  .sec-title{font-family:'Playfair Display',serif;font-size:24px;color:var(--teal-dark);line-height:1.2;}
+  .sec-sub{font-size:12px;color:var(--mid);margin-top:3px;}
+  .cat-break{page-break-before:always;}
+
+  /* GRID */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:20px;}
+
+  /* CARD */
+  .card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;break-inside:avoid;}
+  .card-head{background:var(--teal);padding:16px 18px 14px;}
+  .card-code{font-size:10px;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase;font-weight:500;margin-bottom:4px;}
+  .card-name{font-family:'Playfair Display',serif;font-size:16px;color:var(--white);line-height:1.25;}
+
+  /* Photo slot */
+  .photo-slot{background:#EEF7F5;height:155px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border);}
+  .photo-inner{display:flex;flex-direction:column;align-items:center;gap:7px;}
+  .photo-box{width:40px;height:40px;border:1.5px dashed var(--teal-mid);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+  .photo-box svg{width:19px;height:19px;}
+  .photo-lbl{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--teal-mid);}
+
+  /* Price table */
+  .card-body{padding:16px 16px 12px;}
+  .ptbl{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:13px;}
+  .ptbl thead tr{background:var(--teal-light);}
+  .ptbl thead th{padding:6px 9px;font-weight:600;font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:var(--teal-dark);text-align:left;border-bottom:1px solid var(--border);}
+  .ptbl thead th:last-child{text-align:right;}
+  .ptbl tbody tr{border-bottom:1px solid #E8F3F1;}
+  .ptbl tbody tr:last-child{border-bottom:none;}
+  .ptbl tbody tr.hi{background:rgba(0,121,106,.04);}
+  .ptbl td{padding:7px 9px;color:var(--mid);vertical-align:middle;}
+  .ptbl td:last-child{text-align:right;font-weight:600;color:var(--teal-dark);font-size:14px;}
+  .qb{display:inline-block;background:var(--teal-dark);color:var(--gold-light);font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;letter-spacing:.4px;}
+  .qb.best{background:var(--gold);color:var(--dark);}
+  .min-note{font-size:11px;color:var(--mid);font-style:italic;margin-top:4px;}
+  .oos{display:inline-block;background:#FFF3CD;color:#856404;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-top:4px;}
+
+  /* Footer */
+  .card-foot{padding:10px 16px 13px;border-top:1px solid var(--border);background:var(--teal-light);}
+  .foot-row{display:flex;align-items:center;gap:10px;margin-bottom:5px;}
+  .foot-row:last-child{margin-bottom:0;}
+  .foot-lbl{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--mid);flex-shrink:0;min-width:48px;}
+  .swatches{display:flex;flex-wrap:wrap;gap:5px;align-items:center;}
+  .sw{width:17px;height:17px;border-radius:50%;border:1.5px solid rgba(0,0,0,.13);flex-shrink:0;cursor:default;position:relative;}
+  .sw[title]:hover::after{content:attr(title);position:absolute;bottom:22px;left:50%;transform:translateX(-50%);background:var(--dark);color:#fff;font-size:10px;padding:3px 7px;border-radius:4px;white-space:nowrap;z-index:10;pointer-events:none;}
+  .dbadge{display:inline-flex;align-items:center;gap:5px;background:white;border:1px solid var(--border);border-radius:20px;padding:2px 9px;font-size:11px;color:var(--mid);font-weight:500;}
+  .dbadge svg{width:11px;height:11px;flex-shrink:0;}
+
+  /* Novo badge */
+  .new-badge{position:absolute;top:10px;right:11px;background:var(--gold);color:var(--dark);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:2px 9px;border-radius:20px;}
+
+  /* Page footer */
+  .page-foot{background:var(--teal-dark);padding:56px;text-align:center;}
+  .page-foot h3{font-family:'Playfair Display',serif;font-size:26px;color:var(--white);margin-bottom:8px;}
+  .page-foot p{color:rgba(255,255,255,.36);font-size:13px;max-width:480px;margin:0 auto 24px;}
+  .foot-divider{width:40px;height:1px;background:var(--gold);margin:24px auto;}
+  .foot-tiny{font-size:11px;color:rgba(255,255,255,.2);}
+
+  @media print{.cover,.info-page{page-break-after:always;}.card{break-inside:avoid;}}
+  @media(max-width:600px){.section{padding:26px 16px;}.info-page{padding:36px 18px;}.cover{padding:36px 18px;}.grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="logo-area">
+    <div class="logo-placeholder">Logomarca aqui</div>
+  </div>
+  <div class="cover-badge">Catálogo Corporativo 2025</div>
+  <h1>Brindes <span>Personalizados</span></h1>
+  <p class="cover-sub">Produtos premium com sua identidade visual para eventos, campanhas e presentes corporativos.</p>
+  <div class="cover-divider"></div>
+  <div class="cover-pills">
+    <div class="cover-pill"><span class="pl">Mínimo</span><span class="pv">10 unidades</span></div>
+    <div class="cover-pill"><span class="pl">Personalização</span><span class="pv">Logomarca inclusa</span></div>
+    <div class="cover-pill"><span class="pl">Entrega</span><span class="pv">A partir de 20 dias</span></div>
+    <div class="cover-pill"><span class="pl">Itens</span><span class="pv">33 produtos</span></div>
+  </div>
+</div>
+
+<!-- INFO PAGE -->
+<div class="info-page">
+  <h2>Condições Comerciais</h2>
+  <p class="info-intro">Descontos progressivos por volume. Preços incluem frete, personalização com logomarca e mão de obra.</p>
+
+  <div class="tier-grid">
+    <div class="tier"><div class="qty">10 – 50 unid.</div><div class="pct">50%</div><div class="lbl">margem</div></div>
+    <div class="tier hot"><div class="best">Mais popular</div><div class="qty">51 – 100 unid.</div><div class="pct">45%</div><div class="lbl">margem</div></div>
+    <div class="tier"><div class="qty">101 – 200 unid.</div><div class="pct">40%</div><div class="lbl">margem</div></div>
+    <div class="tier"><div class="qty">201+ unid.</div><div class="pct">30%</div><div class="lbl">margem</div></div>
+  </div>
+
+  <div class="cond-grid">
+    <div class="cond-block">
+      <h4>💳 Formas de Pagamento</h4>
+      <ul>
+        <li>50% de entrada + 50% na entrega</li>
+        <li>À vista com desconto especial</li>
+        <li>Cartão em até 6x sem juros</li>
+        <li>Todos os cartões aceitos</li>
+      </ul>
+    </div>
+    <div class="cond-block">
+      <h4>🚚 Prazo de Entrega</h4>
+      <ul>
+        <li>Padrão: a partir de 20 dias úteis</li>
+        <li>Chapéu de Fibra de Bambu: 25 dias</li>
+        <li>Após aprovação da arte</li>
+        <li>Entregas para todo o Brasil</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="info-note">
+    <p><strong>O que está incluso:</strong> preço do fornecedor + frete + personalização com logomarca (1 face) + 25% de mão de obra. <strong>Atenção:</strong> para canetas avulsas, o frete é R$4,00 por pacote de 10 unidades (R$0,40/un.). Personalizações adicionais são orçadas separadamente.</p>
+  </div>
+</div>
+
+<!-- ===== CANECAS & COPOS ===== -->
+<div class="section">
+  <div class="sec-head">
+    <div class="sec-icon">☕</div>
+    <div><div class="sec-title">Canecas & Copos</div><div class="sec-sub">Térmicos, inox e bambu — ideais para brindes executivos</div></div>
+  </div>
+  <div class="grid">
+
+    <!-- 18624 -->
+    <div class="card">
+      <div class="card-head"><div class="card-code">Cód. 18624</div><div class="card-name">Caneca Inox Parede Dupla 350ml</div></div>
+      <div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div>
+      <div class="card-body">
+        <table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody>
+          <tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 61,88</td></tr>
+          <tr><td><span class="qb best">51–100</span></td><td>R$ 58,62</td></tr>
+          <tr><td><span class="qb">101–200</span></td><td>R$ 55,37</td></tr>
+          <tr><td><span class="qb">201+</span></td><td>R$ 48,87</td></tr>
+        </tbody></table>
+      </div>
+      <div class="card-foot">
+        <div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Branco" style="background:#FFF;"></div><div class="sw" title="Preto" style="background:#1A1A1A;"></div><div class="sw" title="Prata" style="background:#C0C0C0;"></div><div class="sw" title="Rosa" style="background:#E8A0B0;"></div></div></div>
+        <div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div>
+      </div>
+    </div>
+
+    <!-- Econômica -->
+    <div class="card">
+      <div class="card-head"><div class="card-code">Linha Econômica</div><div class="card-name">Caneca Inox Parede Dupla 350ml</div></div>
+      <div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div>
+      <div class="card-body">
+        <table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody>
+          <tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 27,59</td></tr>
+          <tr><td><span class="qb best">51–100</span></td><td>R$ 26,14</td></tr>
+          <tr><td><span class="qb">101–200</span></td><td>R$ 24,69</td></tr>
+          <tr><td><span class="qb">201+</span></td><td>R$ 21,78</td></tr>
+        </tbody></table>
+      </div>
+      <div class="card-foot">
+        <div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Branco" style="background:#FFF;"></div><div class="sw" title="Azul" style="background:#1565C0;"></div><div class="sw" title="Vermelho" style="background:#C62828;"></div><div class="sw" title="Verde" style="background:#2E7D32;"></div><div class="sw" title="Preto" style="background:#1A1A1A;"></div></div></div>
+        <div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div>
+      </div>
+    </div>
+
+    <!-- 18970 -->
+    <div class="card">
+      <div class="card-head"><div class="card-code">Cód. 18970</div><div class="card-name">Caneca Térmica Inox 800ml</div></div>
+      <div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div>
+      <div class="card-body">
+        <table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody>
+          <tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 93,75</td></tr>
+          <tr><td><span class="qb best">51–100</span></td><td>R$ 88,82</td></tr>
+          <tr><td><span class="qb">101–200</span></td><td>R$ 83,89</td></tr>
+          <tr><td><span class="qb">201+</span></td><td>R$ 74,03</td></tr>
+        </tbody></table>
+      </div>
+      <div class="card-foot">
+        <div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div><div class="sw" title="Branco" style="background:#FFF;"></div><div class="sw" title="Lilás" style="background:#9575CD;"></div><div class="sw" title="Azul bebê" style="background:#81D4FA;"></div><div class="sw" title="Rosa" style="background:#F48FB1;"></div></div></div>
+        <div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div>
+      </div>
+    </div>
+
+    <!-- 09172 -->
+    <div class="card">
+      <div class="card-head"><div class="card-code">Cód. 09172</div><div class="card-name">Copo Térmico 500ml</div></div>
+      <div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div>
+      <div class="card-body">
+        <table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody>
+          <tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 71,09</td></tr>
+          <tr><td><span class="qb best">51–100</span></td><td>R$ 67,35</td></tr>
+          <tr><td><span class="qb">101–200</span></td><td>R$ 63,62</td></tr>
+          <tr><td><span class="qb">201+</span></td><td>R$ 56,14</td></tr>
+        </tbody></table>
+      </div>
+      <div class="card-foot">
+        <div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div><div class="sw" title="Vermelho" style="background:#C62828;"></div><div class="sw" title="Verde" style="background:#2E7D32;"></div><div class="sw" title="Azul" style="background:#1565C0;"></div><div class="sw" title="Prata" style="background:#B0BEC5;"></div></div></div>
+        <div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div>
+      </div>
+    </div>
+
+    <!-- 14997 -->
+    <div class="card">
+      <div class="card-head"><div class="card-code">Cód. 14997</div><div class="card-name">Copo Inox com Canudo 500ml</div></div>
+      <div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div>
+      <div class="card-body">
+        <table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody>
+          <tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 78,08</td></tr>
+          <tr><td><span class="qb best">51–100</span></td><td>R$ 73,99</td></tr>
+          <tr><td><span class="qb">101–200</span></td><td>R$ 69,89</td></tr>
+          <tr><td><span class="qb">201+</span></td><td>R$ 61,71</td></tr>
+        </tbody></table>
+      </div>
+      <div class="card-foot">
+        <div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div><div class="sw" title="Prata" style="background:#B0BEC5;"></div></div></div>
+        <div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div>
+      </div>
+    </div>
+
+    <!-- 15356 -->
+    <div class="card">
+      <div class="card-head"><div class="card-code">Cód. 15356</div><div class="card-name">Copo Inox 250ml</div></div>
+      <div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div>
+      <div class="card-body">
+        <table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody>
+          <tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 55,31</td></tr>
+          <tr><td><span class="qb best">51–100</span></td><td>R$ 52,41</td></tr>
+          <tr><td><span class="qb">101–200</span></td><td>R$ 49,51</td></tr>
+          <tr><td><span class="qb">201+</span></td><td>R$ 43,70</td></tr>
+        </tbody></table>
+      </div>
+      <div class="card-foot">
+        <div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div><div class="sw" title="Azul" style="background:#1565C0;"></div><div class="sw" title="Vermelho" style="background:#C62828;"></div><div class="sw" title="Prata" style="background:#B0BEC5;"></div><div class="sw" title="Verde" style="background:#2E7D32;"></div></div></div>
+        <div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div>
+      </div>
+    </div>
+
+    <!-- 09197 -->
+    <div class="card">
+      <div class="card-head"><div class="card-code">Cód. 09197</div><div class="card-name">Copo Inox 480ml</div></div>
+      <div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div>
+      <div class="card-body">
+        <table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody>
+          <tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 49,64</td></tr>
+          <tr><td><span class="qb best">51–100</span></td><td>R$ 47,04</td></tr>
+          <tr><td><span class="qb">101–200</span></td><td>R$ 44,45</td></tr>
+          <tr><td><span class="qb">201+</span></td><td>R$ 39,25</td></tr>
+        </tbody></table>
+      </div>
+      <div class="card-foot">
+        <div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div><div class="sw" title="Vermelho" style="background:#C62828;"></div><div class="sw" title="Verde" style="background:#2E7D32;"></div><div class="sw" title="Azul" style="background:#1565C0;"></div></div></div>
+        <div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div>
+      </div>
+    </div>
+
+    <!-- 03006B esgotado -->
+    <div class="card">
+      <div class="card-head"><div class="card-code">Cód. 03006B</div><div class="card-name">Copo Fibra de Bambu 350ml</div></div>
+      <div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div>
+      <div class="card-body">
+        <table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody>
+          <tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 26,63</td></tr>
+          <tr><td><span class="qb best">51–100</span></td><td>R$ 25,23</td></tr>
+          <tr><td><span class="qb">101–200</span></td><td>R$ 23,83</td></tr>
+          <tr><td><span class="qb">201+</span></td><td>R$ 21,03</td></tr>
+        </tbody></table>
+        <div class="oos">⚠ Esgotado — consulte prazo</div>
+      </div>
+      <div class="card-foot">
+        <div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Bege natural" style="background:#D7C19A;"></div><div class="sw" title="Verde bambu" style="background:#7CB37A;"></div></div></div>
+        <div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Consultar</span></div>
+      </div>
+    </div>
+
+    <!-- 05024P -->
+    <div class="card">
+      <div class="card-head"><div class="card-code">Cód. 05024P</div><div class="card-name">Porta-Copos / Garrafas Isotérmico</div></div>
+      <div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div>
+      <div class="card-body">
+        <table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody>
+          <tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 25,52</td></tr>
+          <tr><td><span class="qb best">51–100</span></td><td>R$ 24,18</td></tr>
+          <tr><td><span class="qb">101–200</span></td><td>R$ 22,84</td></tr>
+          <tr><td><span class="qb">201+</span></td><td>R$ 20,17</td></tr>
+        </tbody></table>
+      </div>
+      <div class="card-foot">
+        <div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div></div></div>
+        <div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== GARRAFAS ===== -->
+<div class="section cat-break">
+  <div class="sec-head"><div class="sec-icon">🍶</div><div><div class="sec-title">Garrafas Térmicas</div><div class="sec-sub">Inox e térmicas de alta performance</div></div></div>
+  <div class="grid">
+
+    <!-- 09257 -->
+    <div class="card">
+      <div class="card-head"><div class="card-code">Cód. 09257</div><div class="card-name">Garrafa Térmica 600ml</div></div>
+      <div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div>
+      <div class="card-body">
+        <table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody>
+          <tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 80,55</td></tr>
+          <tr><td><span class="qb best">51–100</span></td><td>R$ 76,34</td></tr>
+          <tr><td><span class="qb">101–200</span></td><td>R$ 72,13</td></tr>
+          <tr><td><span class="qb">201+</span></td><td>R$ 63,70</td></tr>
+        </tbody></table>
+      </div>
+      <div class="card-foot">
+        <div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div><div class="sw" title="Vermelho" style="background:#C62828;"></div><div class="sw" title="Verde" style="background:#2E7D32;"></div><div class="sw" title="Azul" style="background:#1565C0;"></div><div class="sw" title="Prata" style="background:#B0BEC5;"></div></div></div>
+        <div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div>
+      </div>
+    </div>
+
+    <!-- E@09071 -->
+    <div class="card">
+      <div class="card-head"><div class="card-code">Cód. E@09071</div><div class="card-name">Garrafa Inox 750ml</div></div>
+      <div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div>
+      <div class="card-body">
+        <table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody>
+          <tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 49,38</td></tr>
+          <tr><td><span class="qb best">51–100</span></td><td>R$ 46,78</td></tr>
+          <tr><td><span class="qb">101–200</span></td><td>R$ 44,19</td></tr>
+          <tr><td><span class="qb">201+</span></td><td>R$ 39,00</td></tr>
+        </tbody></table>
+      </div>
+      <div class="card-foot">
+        <div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Azul" style="background:#1565C0;"></div><div class="sw" title="Rosa" style="background:#E91E8C;"></div></div></div>
+        <div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== CADERNOS ===== -->
+<div class="section">
+  <div class="sec-head"><div class="sec-icon">📓</div><div><div class="sec-title">Cadernos & Cadernetas</div><div class="sec-sub">Para escritórios, reuniões e eventos corporativos</div></div></div>
+  <div class="grid">
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 05067</div><div class="card-name">Caderneta Emborrachada</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 27,78</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 26,33</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 24,87</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 21,96</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div><div class="sw" title="Azul" style="background:#1565C0;"></div><div class="sw" title="Vermelho" style="background:#C62828;"></div><div class="sw" title="Verde" style="background:#2E7D32;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 03002</div><div class="card-name">Caderneta Emborrachada (Grande)</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 39,51</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 37,44</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 35,37</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 31,23</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div><div class="sw" title="Cinza" style="background:#757575;"></div><div class="sw" title="Azul" style="background:#1565C0;"></div><div class="sw" title="Verde" style="background:#2E7D32;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 03002B</div><div class="card-name">Caderneta Emborrachada B</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 38,63</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 36,60</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 34,58</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 30,53</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div><div class="sw" title="Cinza" style="background:#757575;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 06101</div><div class="card-name">Caderneta com Suporte de Celular</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 31,13</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 29,50</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 27,86</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 24,59</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div><div class="sw" title="Azul" style="background:#1565C0;"></div><div class="sw" title="Vermelho" style="background:#C62828;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 08203</div><div class="card-name">Caderno Fichário PU</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 55,31</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 52,41</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 49,51</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 43,70</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div><div class="sw" title="Verde militar" style="background:#4A5D3A;"></div><div class="sw" title="Marrom" style="background:#795548;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 03024</div><div class="card-name">Mini Caderneta Sintética Brilhante</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 18,04</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 17,09</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 16,15</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 14,26</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Dourado" style="background:#C9A84C;"></div><div class="sw" title="Prateado" style="background:#C0C0C0;"></div><div class="sw" title="Rosa gold" style="background:#E8A0A0;"></div><div class="sw" title="Azul metálico" style="background:#5C7FA6;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 15077</div><div class="card-name">Caderno A5 Papel Reciclado</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 33,51</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 31,76</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 30,00</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 26,49</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Kraft natural" style="background:#C8A96E;"></div><div class="sw" title="Areia" style="background:#E0C9A0;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 08290</div><div class="card-name">Caderneta Fibra de Arroz com Caneta</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 31,13</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 29,50</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 27,86</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 24,59</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Bege natural" style="background:#D7C19A;"></div><div class="sw" title="Cinza" style="background:#9E9E9E;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 19140</div><div class="card-name">Caderno Fichário Couro Sintético</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 49,20</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 46,63</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 44,06</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 38,91</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div><div class="sw" title="Caramelo" style="background:#B5651D;"></div><div class="sw" title="Cinza" style="background:#757575;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+  </div>
+</div>
+
+<!-- ===== KITS EXECUTIVOS ===== -->
+<div class="section cat-break">
+  <div class="sec-head"><div class="sec-icon">💼</div><div><div class="sec-title">Kits Executivos</div><div class="sec-sub">Conjuntos prontos para presentes e eventos corporativos</div></div></div>
+  <div class="grid">
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 07050</div><div class="card-name">Kit para Anotações com Caneta</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 55,31</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 52,41</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 49,51</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 43,70</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div><div class="sw" title="Azul" style="background:#1565C0;"></div><div class="sw" title="Vermelho" style="background:#C62828;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 08255</div><div class="card-name">Kit Executivo 2 Peças (Premium)</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 95,39</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 90,40</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 85,40</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 75,41</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 10889</div><div class="card-name">Kit Executivo 2 Peças</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 64,64</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 61,25</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 57,86</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 51,08</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 19029</div><div class="card-name">Kit Executivo 2 Peças</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 36,00</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 34,13</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 32,25</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 28,49</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div><div class="sw" title="Bambu" style="background:#C8A96E;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 19081</div><div class="card-name">Kit Executivo Ecológico 3 Peças</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 45,23</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 42,87</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 40,50</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 35,77</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Natural" style="background:#C8A96E;"></div><div class="sw" title="Preto" style="background:#1A1A1A;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 07048</div><div class="card-name">Kit Ecológico 3 Peças — Caixa Preta</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 64,38</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 61,00</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 57,62</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 50,86</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Caixa</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 07048</div><div class="card-name">Kit Ecológico 3 Peças — Caixa Bege</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 64,38</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 61,00</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 57,62</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 50,86</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Caixa</span><div class="swatches"><div class="sw" title="Bege" style="background:#D9C49A;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 19143</div><div class="card-name">Kit Executivo 2 Peças</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 55,20</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 52,31</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 49,42</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 43,64</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 19144</div><div class="card-name">Kit Executivo 2 Peças Colorido</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 57,35</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 54,35</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 51,34</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 45,33</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Azul" style="background:#1565C0;"></div><div class="sw" title="Vermelho" style="background:#C62828;"></div><div class="sw" title="Verde" style="background:#2E7D32;"></div><div class="sw" title="Laranja" style="background:#E65100;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+  </div>
+</div>
+
+<!-- ===== CANETAS ===== -->
+<div class="section">
+  <div class="sec-head"><div class="sec-icon">🖊️</div><div><div class="sec-title">Canetas & Kits de Canetas</div><div class="sec-sub">Preços com frete de R$4,00 por pacote de 10 unidades</div></div></div>
+  <div class="grid">
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 05011A</div><div class="card-name">Caneta Metal Touch</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 21,57</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 19,61</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 17,98</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 15,41</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div><div class="sw" title="Azul" style="background:#1565C0;"></div><div class="sw" title="Vermelho" style="background:#C62828;"></div><div class="sw" title="Prata" style="background:#B0BEC5;"></div><div class="sw" title="Dourado" style="background:#C9A84C;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 09266A</div><div class="card-name">Caneta Metal Touch M2</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 21,57</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 19,61</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 17,98</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 15,41</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div><div class="sw" title="Azul" style="background:#1565C0;"></div><div class="sw" title="Verde" style="background:#2E7D32;"></div><div class="sw" title="Vermelho" style="background:#C62828;"></div><div class="sw" title="Laranja" style="background:#E65100;"></div><div class="sw" title="Prata" style="background:#B0BEC5;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 06076T</div><div class="card-name">Caneta Metal Touch T</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 21,68</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 19,70</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 18,06</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 15,48</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div><div class="sw" title="Azul" style="background:#1565C0;"></div><div class="sw" title="Vermelho" style="background:#C62828;"></div><div class="sw" title="Verde" style="background:#2E7D32;"></div><div class="sw" title="Roxo" style="background:#6A1B9A;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 18835</div><div class="card-name">Kit Caneta e Chaveiro Bambu</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 33,19</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 31,45</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 29,71</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 26,22</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Bambu natural" style="background:#C8A96E;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 15363</div><div class="card-name">Kit Caneta e Chaveiro Alumínio</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 46,06</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 43,65</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 41,24</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 36,41</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Prata" style="background:#B0BEC5;"></div><div class="sw" title="Preto" style="background:#1A1A1A;"></div><div class="sw" title="Dourado" style="background:#C9A84C;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+  </div>
+</div>
+
+<!-- ===== ACESSÓRIOS ===== -->
+<div class="section cat-break">
+  <div class="sec-head"><div class="sec-icon">🎒</div><div><div class="sec-title">Acessórios & Utilidades</div><div class="sec-sub">Mouse pad, sacolas, caixas de som, chapéu e mais</div></div></div>
+  <div class="grid">
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 19069</div><div class="card-name">Mouse Pad Poliéster</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 38,40</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 36,38</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 34,37</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 30,33</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div><div class="sw" title="Azul" style="background:#1565C0;"></div><div class="sw" title="Cinza" style="background:#757575;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. P@04088B</div><div class="card-name">Pasta para Notebook 15'6 Poliéster</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 64,38</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 61,00</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 57,62</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 50,86</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div><div class="sw" title="Cinza" style="background:#757575;"></div><div class="sw" title="Azul" style="background:#1565C0;"></div><div class="sw" title="Bordô" style="background:#7B1F2E;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 13780</div><div class="card-name">Sacola TNT com Alça</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 16,58</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 15,71</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 14,84</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 13,10</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div><div class="sw" title="Azul" style="background:#1565C0;"></div><div class="sw" title="Vermelho" style="background:#C62828;"></div><div class="sw" title="Verde" style="background:#2E7D32;"></div><div class="sw" title="Laranja" style="background:#E65100;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 09142</div><div class="card-name">Sacola TNT Metalizado</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 20,03</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 18,98</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 17,93</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 15,83</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Dourado" style="background:#C9A84C;"></div><div class="sw" title="Prateado" style="background:#C0C0C0;"></div><div class="sw" title="Rosé gold" style="background:#E8A090;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 09286</div><div class="card-name">Saca-Rolhas Recarregável</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 68,06</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 64,48</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 60,90</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 53,75</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div><div class="sw" title="Prata" style="background:#B0BEC5;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <div class="card"><div class="card-head"><div class="card-code">Cód. 09290G</div><div class="card-name">Caixa de Som Multimídia TWS RGB</div></div><div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div><div class="card-body"><table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody><tr class="hi"><td><span class="qb">10–50</span></td><td>R$ 94,57</td></tr><tr><td><span class="qb best">51–100</span></td><td>R$ 89,63</td></tr><tr><td><span class="qb">101–200</span></td><td>R$ 84,68</td></tr><tr><td><span class="qb">201+</span></td><td>R$ 74,79</td></tr></tbody></table></div><div class="card-foot"><div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Preto" style="background:#1A1A1A;"></div></div></div><div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>20 dias úteis</span></div></div></div>
+
+    <!-- CHAPÉU — NOVO -->
+    <div class="card" style="border:2px solid var(--gold);">
+      <div class="card-head" style="background:var(--teal-dark);position:relative;">
+        <div class="new-badge">Novo</div>
+        <div class="card-code">Linha Especial</div>
+        <div class="card-name">Chapéu de Fibra de Bambu</div>
+      </div>
+      <div class="photo-slot"><div class="photo-inner"><div class="photo-box"><svg viewBox="0 0 24 24" fill="none" stroke="#4AADA3" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><span class="photo-lbl">Foto do produto</span></div></div>
+      <div class="card-body">
+        <table class="ptbl"><thead><tr><th>Qtd.</th><th>Preço Unit.</th></tr></thead><tbody>
+          <tr class="hi"><td><span class="qb">30–50</span></td><td>R$ 142,25</td></tr>
+          <tr><td><span class="qb best">51–100</span></td><td>R$ 129,32</td></tr>
+          <tr><td><span class="qb">101–200</span></td><td>R$ 118,54</td></tr>
+          <tr><td><span class="qb">201+</span></td><td>R$ 101,61</td></tr>
+        </tbody></table>
+        <p class="min-note">Pedido mínimo: 30 unidades</p>
+      </div>
+      <div class="card-foot">
+        <div class="foot-row"><span class="foot-lbl">Cores</span><div class="swatches"><div class="sw" title="Natural" style="background:#C8A96E;"></div><div class="sw" title="Preto" style="background:#1A1A1A;"></div><div class="sw" title="Areia" style="background:#E0C9A0;"></div></div></div>
+        <div class="foot-row"><span class="foot-lbl">Prazo</span><span class="dbadge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>25 dias úteis</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PAGE FOOTER -->
+<div class="page-foot">
+  <div class="logo-placeholder" style="margin:0 auto 28px;border-color:rgba(201,168,76,.3);color:rgba(201,168,76,.38);">Logomarca aqui</div>
+  <h3>Solicite seu Orçamento</h3>
+  <p>Todos os produtos personalizados com sua logomarca. Entregamos para todo o Brasil.</p>
+  <div class="foot-divider"></div>
+  <p class="foot-tiny">Preços sujeitos a alteração sem aviso prévio. Imagens meramente ilustrativas. Consulte disponibilidade de estoque. Passe o mouse sobre os quadradinhos de cor para ver o nome da cor.</p>
+</div>
+
+</body>
+</html>
